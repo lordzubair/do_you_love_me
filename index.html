@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question</title>
+
+<style>
+    body{
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#ffd6e7,#ffeccf);
+        font-family:Arial, sans-serif;
+        overflow:hidden;
+    }
+
+    .box{
+        background:white;
+        padding:30px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:0 8px 25px rgba(0,0,0,.2);
+        position:relative;
+    }
+
+    h2{
+        margin-top:0;
+    }
+
+    button{
+        padding:10px 25px;
+        margin:10px;
+        font-size:18px;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        transition:.2s;
+    }
+
+    #yes{
+        background:#4CAF50;
+        color:white;
+    }
+
+    #no{
+        background:#ff4d4d;
+        color:white;
+        position:absolute;
+    }
+</style>
+</head>
+<body>
+
+<div class="box" id="box">
+    <h2>Do you love me? 😊</h2>
+
+    <button id="yes">Yes ❤️</button>
+    <button id="no">No 😒</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const box = document.getElementById("box");
+
+// Initial position of "No"
+noBtn.style.left = "180px";
+noBtn.style.top = "80px";
+
+function moveButton(){
+
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+// Desktop
+noBtn.addEventListener("mouseenter", moveButton);
+
+// Mobile
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveButton();
+});
+
+yesBtn.addEventListener("click", function(){
+    alert("I knew it!❤️ ");
+});
+</script>
+
+</body>
+</html>
