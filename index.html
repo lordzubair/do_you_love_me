@@ -4,52 +4,56 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Question</title>
-
 <style>
-    body{
-        margin:0;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:linear-gradient(135deg,#ffd6e7,#ffeccf);
-        font-family:Arial, sans-serif;
-        overflow:hidden;
-    }
+body{
+    margin:0;
+    width:100vw;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ffd6e7,#ffeccf);
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+}
 
-    .box{
-        background:white;
-        padding:30px;
-        border-radius:15px;
-        text-align:center;
-        box-shadow:0 8px 25px rgba(0,0,0,.2);
-        position:relative;
-    }
+.box{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    transition:left .15s, top .15s;
+}
 
-    h2{
-        margin-top:0;
-    }
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:20px;
+}
 
-    button{
-        padding:10px 25px;
-        margin:10px;
-        font-size:18px;
-        border:none;
-        border-radius:8px;
-        cursor:pointer;
-        transition:.2s;
-    }
+button{
+    padding:10px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
 
-    #yes{
-        background:#4CAF50;
-        color:white;
-    }
+#yes{
+    background:#4CAF50;
+    color:white;
+}
 
-    #no{
-        background:#ff4d4d;
-        color:white;
-        position:absolute;
-    }
+#no{
+    background:#ff4d4d;
+    color:white;
+}
 </style>
 </head>
 <body>
@@ -57,43 +61,41 @@
 <div class="box" id="box">
     <h2>Do you love me? 😊</h2>
 
-    <button id="yes">Yes ❤️</button>
-    <button id="no">No 😒</button>
+    <div class="buttons">
+        <button id="yes">Yes ❤️</button>
+        <button id="no">No 😒</button>
+    </div>
 </div>
 
 <script>
+const box = document.getElementById("box");
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
-const box = document.getElementById("box");
 
-// Initial position of "No"
-noBtn.style.left = "180px";
-noBtn.style.top = "80px";
+function moveBox() {
 
-function moveButton(){
+    const padding = 20;
 
-    const maxX = window.innerWidth - noBtn.offsetWidth;
-    const maxY = window.innerHeight - noBtn.offsetHeight;
+    const maxX = window.innerWidth - box.offsetWidth - padding;
+    const maxY = window.innerHeight - box.offsetHeight - padding;
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+    const x = Math.random() * maxX + padding;
+    const y = Math.random() * maxY + padding;
 
-    noBtn.style.position = "fixed";
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+    box.style.left = x + "px";
+    box.style.top = y + "px";
+    box.style.transform = "none";
 }
 
-// Desktop
-noBtn.addEventListener("mouseenter", moveButton);
+noBtn.addEventListener("mouseenter", moveBox);
 
-// Mobile
 noBtn.addEventListener("touchstart", function(e){
     e.preventDefault();
-    moveButton();
+    moveBox();
 });
 
 yesBtn.addEventListener("click", function(){
-    alert("I knew it!❤️ ");
+    alert("I knew it!❤️");
 });
 </script>
 
