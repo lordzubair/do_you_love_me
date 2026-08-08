@@ -72,8 +72,21 @@ const box = document.getElementById("box");
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 
-function moveBox() {
+const messages = [
+    "🤨 Are you sure?",
+    "Think again!",
+    "Wrong answer 😂",
+    "Nice try 😜",
+    "Nope!",
+    "The 'No' button is on vacation 🏖️",
+    "System Error: 'No' not found.",
+    "That's illegal. 🚨",
+    "Try clicking Yes 😏"
+];
 
+function moveBox() {
+    
+    document.querySelector("h2").innerHTML = "<h2>Do You love me?❤️ </h2>";
     const padding = 20;
 
     const maxX = window.innerWidth - box.offsetWidth - padding;
@@ -85,6 +98,7 @@ function moveBox() {
     box.style.left = x + "px";
     box.style.top = y + "px";
     box.style.transform = "none";
+    document.querySelector("h2").innerHTML += messages[Math.floor(Math.random()*messages.length)];
 }
 
 noBtn.addEventListener("mouseenter", moveBox);
@@ -95,8 +109,32 @@ noBtn.addEventListener("touchstart", function(e){
 });
 
 yesBtn.addEventListener("click", function(){
-    alert("I knew it!❤️");
+    box.innerHTML = `
+<h1>🎉 I knew it! ❤️</h1>
+<p>You have an excellent taste. 😌</p>
+`;
 });
+for(let i=0;i<30;i++){
+
+    const heart=document.createElement("div");
+
+    heart.innerHTML="❤️";
+    heart.style.position="fixed";
+    heart.style.left=Math.random()*window.innerWidth+"px";
+    heart.style.top=window.innerHeight+"px";
+    heart.style.fontSize=(20+Math.random()*25)+"px";
+
+    heart.animate([
+        {transform:"translateY(0)",opacity:1},
+        {transform:"translateY(-700px)",opacity:0}
+    ],{
+        duration:2500+Math.random()*1000
+    });
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),3500);
+}
 </script>
 
 </body>
